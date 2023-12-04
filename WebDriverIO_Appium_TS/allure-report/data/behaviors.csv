@@ -1,0 +1,5 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"","Remove Books from Reading, Wish list and perform validations","","0","0","1","0","2"
+"","Open Book details and perform validations for all the details present on screen ","","0","0","1","0","1"
+"","Search Boook using BookName/ISBN and perform validations","","0","0","3","0","0"
+"","Adding Book to List (WishList,Currently Reading) from search result screen","","0","0","3","0","0"
