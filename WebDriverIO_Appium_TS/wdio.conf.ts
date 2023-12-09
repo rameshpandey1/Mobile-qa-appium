@@ -137,7 +137,7 @@ export const config: Options.Testrunner = {
 	specFileRetries: 1,
 	//
 	// Delay in seconds between the spec file retry attempts
-	specFileRetriesDelay: 90000,
+	specFileRetriesDelay: 120000,
 	//
 	// Whether or not retried spec files should be retried immediately or deferred to the end of the queue
 	// specFileRetriesDeferred: false,
@@ -270,9 +270,9 @@ export const config: Options.Testrunner = {
 	 * Hook that gets executed after the suite has ended
 	 * @param {object} suite suite details
 	 */
-	//   afterSuite: async function (suite) {
-	//       browser.terminateApp("com.studocuproject")
-	//   },
+	   afterSuite: async function (suite) {
+	       browser.terminateApp("com.studocuproject")
+	   },
 	/**
 	 * Runs after a WebdriverIO command gets executed
 	 * @param {string} commandName hook command name
@@ -297,9 +297,9 @@ export const config: Options.Testrunner = {
 	 * @param {Array.<Object>} capabilities list of capabilities details
 	 * @param {Array.<String>} specs List of spec file paths that ran
 	 */
-	afterSession: async function (config, capabilities, specs) {
-		await browser.deleteSession();
-	}
+	// afterSession: async function (config, capabilities, specs) {
+	// 	await browser.deleteSession();
+	// }
 	/**
 	 * Gets executed after all workers got shut down and the process is about to exit. An error
 	 * thrown in the onComplete hook will result in the test run failing.

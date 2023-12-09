@@ -53,7 +53,7 @@ describe("Remove Books from Reading, Wish list and perform validations", async (
 		await ResultPage.updateCurrentlyReadingList("ReadingList");
 		await HomePage.openCurrentlyReadingList();
 		expect(bookTitleOnCurrentlyReadingPage[4]).not.toBeDisplayed();
-		//await ResultPage.navigateToBackScreen()
+		await ResultPage.navigateToBackScreen()
 	});
 
 	it("Removing Book from WishList from search result screen", async () => {

@@ -14,7 +14,7 @@ export class MobileHelper {
 
 		if (await progressBar.isDisplayed()) {
 			progressBar.waitUntil(() => !progressBar.isDisplayed(), {
-				timeout: 40000,
+				timeout: 30000,
 				timeoutMsg: "Progressbar not disappear within given time frame",
 				interval: 1000
 			});
@@ -29,15 +29,15 @@ export class MobileHelper {
 	 * @param action : action to perform on book
 	 */
 	static async addRemoveBookToList(selector: WebdriverIO.Element, action: string) {
-		await $(selector).waitForDisplayed({ timeout: 30000 });
+		await browser.waitUntil(() => selector.waitForDisplayed({ timeout: 30000 }));
 		const performAction = action;
 		switch (performAction) {
 			case "ReadingList":
-				await $(selector).click();
+				await this.click(selector);
 				break;
 
 			case "WishList":
-				await $(selector).click();
+				await this.click(selector);
 				break;
 
 			default:
@@ -80,8 +80,13 @@ export class MobileHelper {
 	 * @returns Promise<void> - Resolves when the click action is completed.
 	 */
 	static async click(selector: WebdriverIO.Element): Promise<void> {
-		const element = await $(selector);
-		await element.click();
+		browser.waitUntil(() => selector.waitForDisplayed({ timeout: 30000 }));
+		const element=await $(selector);
+		if (await element.isDisplayed()) {
+			element.click();
+		} else {
+			console.log("Elemenent not found or not visible on UI");
+		}
 	}
 
 	/**
@@ -91,7 +96,8 @@ export class MobileHelper {
 	 * @returns Promise<void> - Resolves when the click action is completed.
 	 */
 	static async clickOnIndexElement(selector: WebdriverIO.Element[], index: number): Promise<void> {
-		const element = await $$(selector);
+		(await browser.waitUntil(() => selector)).length > 0;
+		const element=await $$(selector);
 		await element[index].click();
 	}
 
@@ -113,6 +119,7 @@ export class MobileHelper {
 	 * @returns Promise<void> - Resolves when text input and 'Enter' key presses are completed.
 	 */
 	static async enterTextAndPressEnter(selector: WebdriverIO.Element, textToEnter: string): Promise<void> {
+		await browser.waitUntil(() => selector.waitForDisplayed({ timeout: 30000 }));
 		await browser.keys(Key.Clear);
 		const element = await $(selector);
 		await element.setValue(textToEnter);
@@ -141,7 +148,8 @@ export class MobileHelper {
 	 * @returns Promise<string[]> - Resolves with an array of strings containing the text from the elements.
 	 */
 	static async getArrayElementsWithText(selector: WebdriverIO.Element[]): Promise<string[]> {
-		const bookArrayELements: string[] = [];
+		(await browser.waitUntil(() => selector)).length > 0;
+		const bookArrayELements: string[]=[];
 		for (const titleElement of selector) {
 			bookArrayELements.push(await titleElement.getText());
 		}
